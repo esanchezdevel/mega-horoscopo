@@ -1,7 +1,5 @@
 package com.mega.horoscopo.app.interceptor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,8 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class WebInterceptor implements HandlerInterceptor {
-
-	private static Logger logger = LogManager.getLogger(WebInterceptor.class);
 
 	private static final String USER_AGENT = "USER-AGENT";
 	
@@ -27,8 +23,6 @@ public class WebInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("Request received: {}", request);
-		
 		Stats stats = new Stats();
 		stats.setUserIp(request.getRemoteAddr());
 		stats.setRequestMethod(request.getMethod());
