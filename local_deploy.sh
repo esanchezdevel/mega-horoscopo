@@ -6,7 +6,7 @@ echo "Building application"
 echo "===================="
 echo
 
-mvn clean package -DskipTest
+mvn clean package -DskipTests
 
 echo "====================="
 echo "Cleaning docker image"
