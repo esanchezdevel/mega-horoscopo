@@ -15,6 +15,8 @@ public class WebInterceptor implements HandlerInterceptor {
 
 	private static Logger logger = LogManager.getLogger(WebInterceptor.class);
 
+	private static final String USER_AGENT = "USER-AGENT";
+	
 	@Autowired
 	private StatsService statsService;
 
@@ -29,6 +31,9 @@ public class WebInterceptor implements HandlerInterceptor {
 		
 		Stats stats = new Stats();
 		stats.setUserIp(request.getRemoteAddr());
+		stats.setRequestMethod(request.getMethod());
+		stats.setResource(request.getRequestURI());
+		stats.setUserAgent(request.getHeader(USER_AGENT));
 		
 		statsService.registerVisit(stats);
 		
