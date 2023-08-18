@@ -9,5 +9,4 @@ public class MegaHoroscopoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MegaHoroscopoApplication.class, args);
 	}
-
 }

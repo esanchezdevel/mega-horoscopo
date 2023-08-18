@@ -17,4 +17,8 @@ public class Stats {
 	
 	@Column(name = "user_ip")
 	private String userIp;
+	
+	public void setUserIp(String userIp) {
+		this.userIp = userIp;
+	}
 }
