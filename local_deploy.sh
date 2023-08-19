@@ -6,7 +6,7 @@ echo "Building application"
 echo "===================="
 echo
 
-mvn clean package -DskipTests -Dspring.profiles.active=dev
+mvn clean package -DskipTests
 
 echo "====================="
 echo "Cleaning docker image"
