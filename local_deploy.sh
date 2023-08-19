@@ -26,7 +26,7 @@ echo "========================"
 echo "Running docker container"
 echo "========================"
 
-docker run -d --name mega-horoscopo --network mega-horoscopo -p 8080:8080 mega-horoscopo:latest
+docker run -d --name mega-horoscopo -e SPRING_PROFILES_ACTIVE=dev --network mega-horoscopo -p 8080:8080 mega-horoscopo:latest
 
 echo
 echo "===================="
