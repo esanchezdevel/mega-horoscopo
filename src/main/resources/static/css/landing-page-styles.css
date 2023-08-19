@@ -1,0 +1,14 @@
+#landing-page-description p {
+	font-size: 20px;
+	color: #515a5a;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+	#landing-page-description p {
+		font-size: 10px;
+		text-align: justify;
+	}
+}
