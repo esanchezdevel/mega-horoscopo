@@ -1,0 +1,30 @@
+#responsive-landing-page-signs {
+	display: none;
+}
+
+.sign {
+	box-shadow: 5px 5px 5px grey;
+}
+
+@media (max-width: 600px) {
+	
+	#responsive-landing-page-signs {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.sign {
+		width: 100px;
+		height: 100px;
+		margin: 15px;
+	}
+}
+
+@media (max-width: 400px) {
+	.sign {
+		width: 75px;
+		height: 75px;
+		margin: 10px;
+	}
+}
