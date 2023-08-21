@@ -21,6 +21,10 @@ public class MainController {
 	public String sign(Model model, @PathVariable String sign) {
 		logger.info("Request [/sign/{}", sign);
 		
+		//TODO check if user has token of week_content (current year and current week) table in cookies to show sign
+		//TODO if not have it, redirect to paypal
+		//TODO if have it, show content
+		
 		return "sign";
 	}
 }
