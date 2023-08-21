@@ -1,6 +1,6 @@
 package com.mega.horoscopo.domain.model.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,9 +32,13 @@ public class Stats {
 	private String userAgent;
 	
 	@CreatedDate
-	@Column(name = "created", insertable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate created;
-	
+	private LocalDateTime created;
+
+	@PrePersist
+	public void prePersist() {
+		created = LocalDateTime.now();
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -54,7 +59,7 @@ public class Stats {
 		this.userAgent = userAgent;
 	}
 
-	public void setCreated(LocalDate created) {
+	public void setCreated(LocalDateTime created) {
 		this.created = created;
 	}
 
