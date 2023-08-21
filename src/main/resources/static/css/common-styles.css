@@ -13,6 +13,7 @@ body {
 .main-header h1 {
 	color:  #c39bd3;
 	margin-bottom: 10px;
+	text-shadow: 2px 2px 2px grey;
 }
 
 .main-header p {
@@ -36,11 +37,11 @@ footer p {
 
 @media (max-width: 600px) {
 	.main-header {
-		font-size: 15px;
+		font-size: 18px;
 	}
 	
 	.main-header p {
-		font-size: 10px;
+		font-size: 15px;
 		text-align: justify;
 	}
 }
