@@ -23,6 +23,8 @@ public class MainController {
 
 	private static final Logger logger = LogManager.getLogger(MainController.class);
 	
+	private static final String PAGE_PAYMENT = "payment";
+	
 	@Autowired
 	private SignService signService;
 	
@@ -46,7 +48,7 @@ public class MainController {
 		
 		String page = signService.execute(token);
 		logger.info("page: {}", page);
-		if (page.equals("redirect")) {
+		if (page.equals(PAGE_PAYMENT)) {
 			//TODO redirect to payment page
 			return page;
 		} else {
