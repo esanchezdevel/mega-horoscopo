@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mega.horoscopo.app.service.interfaces.SignService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class MainController {
 
@@ -24,13 +27,22 @@ public class MainController {
 	private SignService signService;
 	
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(HttpServletResponse response, Model model) {
+		
+		//TODO remove after test. create a cookie
+		Cookie cookie = new Cookie("sign-token", "test-token");
+		cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+		cookie.setHttpOnly(true);
+
+		//TODO remove after test. add cookie to response
+		response.addCookie(cookie);
+		
 		return "index";
 	}
 	
 	@GetMapping("/sign/{sign}")
-	public String sign(Model model, @PathVariable String sign, @CookieValue(value = "sign-token") String token) {
-		logger.info("Request [/sign/{}", sign);
+	public String sign(Model model, @PathVariable String sign, @CookieValue(value = "sign-token", defaultValue = "") String token) {
+		logger.info("Request: /sign/{}", sign);
 		
 		String page = signService.execute(token);
 		logger.info("page: {}", page);

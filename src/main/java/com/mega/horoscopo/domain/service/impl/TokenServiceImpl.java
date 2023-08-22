@@ -25,7 +25,7 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public boolean validateToken(String token) {
 		boolean isValid = false;
-		if (token == null) {
+		if (token == null || token.isEmpty()) {
 			logger.info("Empty token");
 			return isValid;
 		}
