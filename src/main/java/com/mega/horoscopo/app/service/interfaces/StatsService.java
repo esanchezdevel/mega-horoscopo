@@ -1,4 +1,4 @@
-package com.mega.horoscopo.domain.service.interfaces;
+package com.mega.horoscopo.app.service.interfaces;
 
 import com.mega.horoscopo.domain.model.entity.Stats;
 

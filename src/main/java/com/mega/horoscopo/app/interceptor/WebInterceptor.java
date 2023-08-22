@@ -3,8 +3,8 @@ package com.mega.horoscopo.app.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.mega.horoscopo.app.service.interfaces.StatsService;
 import com.mega.horoscopo.domain.model.entity.Stats;
-import com.mega.horoscopo.domain.service.interfaces.StatsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

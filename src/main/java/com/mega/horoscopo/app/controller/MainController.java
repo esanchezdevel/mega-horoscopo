@@ -1,16 +1,27 @@
 package com.mega.horoscopo.app.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import com.mega.horoscopo.app.service.interfaces.SignService;
 
 @Controller
 public class MainController {
 
 	private static final Logger logger = LogManager.getLogger(MainController.class);
+	
+	@Autowired
+	private SignService signService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -18,13 +29,16 @@ public class MainController {
 	}
 	
 	@GetMapping("/sign/{sign}")
-	public String sign(Model model, @PathVariable String sign) {
+	public String sign(Model model, @PathVariable String sign, @CookieValue(value = "sign-token") String token) {
 		logger.info("Request [/sign/{}", sign);
 		
-		//TODO check if user has token of week_content (current year and current week) table in cookies to show sign
-		//TODO if not have it, redirect to paypal
-		//TODO if have it, show content
-		
-		return "sign";
+		String page = signService.execute(token);
+		logger.info("page: {}", page);
+		if (page.equals("redirect")) {
+			//TODO redirect to payment page
+			return page;
+		} else {
+			return page;
+		}
 	}
 }
