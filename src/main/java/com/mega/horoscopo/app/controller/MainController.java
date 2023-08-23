@@ -1,8 +1,12 @@
 package com.mega.horoscopo.app.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +17,10 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.mega.horoscopo.app.dto.PaypalAccessTokenResponseDTO;
 import com.mega.horoscopo.app.service.interfaces.SignService;
+import com.mega.horoscopo.infrastructure.configuration.PaypalConfiguration;
+import com.mega.horoscopo.infrastructure.http.PaypalClient;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +35,12 @@ public class MainController {
 	@Autowired
 	private SignService signService;
 	
+	@Autowired
+	private PaypalClient paypalClient;
+	
+	@Autowired
+	private PaypalConfiguration paypalConfiguration;
+	
 	@GetMapping("/")
 	public String index(HttpServletResponse response, Model model) {
 		
@@ -38,6 +51,16 @@ public class MainController {
 
 		//TODO remove after test. add cookie to response
 		response.addCookie(cookie);
+		
+		//TODO request for test purpose. move to right place when is done
+		String auth = paypalConfiguration.getClientId() + ":" + paypalConfiguration.getClientSecret();
+
+		byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
+		String credentials = "Basic " + new String(encodedAuth);
+		
+		PaypalAccessTokenResponseDTO accessToken = paypalClient.getAccessToken(credentials, "grant_type=client_credentials");
+		
+		logger.info("Paypal Access Token received: {}", accessToken);
 		
 		return "index";
 	}
