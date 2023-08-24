@@ -45,12 +45,12 @@ public class MainController {
 	public String index(HttpServletResponse response, Model model) {
 		
 		//TODO remove after test. create a cookie
-		Cookie cookie = new Cookie("sign-token", "test-token");
-		cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-		cookie.setHttpOnly(true);
+//		Cookie cookie = new Cookie("sign-token", "test-token");
+//		cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+//		cookie.setHttpOnly(true);
 
 		//TODO remove after test. add cookie to response
-		response.addCookie(cookie);
+//		response.addCookie(cookie);
 		
 		//TODO request for test purpose. move to right place when is done
 		String auth = paypalConfiguration.getClientId() + ":" + paypalConfiguration.getClientSecret();
