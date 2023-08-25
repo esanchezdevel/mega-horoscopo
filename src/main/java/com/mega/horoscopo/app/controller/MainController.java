@@ -53,14 +53,6 @@ public class MainController {
 //		response.addCookie(cookie);
 		
 		//TODO request for test purpose. move to right place when is done
-		String auth = paypalConfiguration.getClientId() + ":" + paypalConfiguration.getClientSecret();
-
-		byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
-		String credentials = "Basic " + new String(encodedAuth);
-		
-		PaypalAccessTokenResponseDTO accessToken = paypalClient.getAccessToken(credentials, "grant_type=client_credentials");
-		
-		logger.info("Paypal Access Token received: {}", accessToken);
 		
 		return "index";
 	}

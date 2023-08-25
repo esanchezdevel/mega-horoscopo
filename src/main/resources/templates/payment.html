@@ -25,7 +25,7 @@
       paypal.Buttons({
         // Order is created on the server and the order id is returned
         createOrder() {
-          return fetch("/my-server/create-paypal-order", {
+          return fetch("/api/v1/paypal/order/create", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -35,8 +35,7 @@
             body: JSON.stringify({
               cart: [
                 {
-                  sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-                  quantity: "YOUR_PRODUCT_QUANTITY",
+                  quantity: "1",
                 },
               ],
             }),
