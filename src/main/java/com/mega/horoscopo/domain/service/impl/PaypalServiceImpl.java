@@ -50,7 +50,7 @@ public class PaypalServiceImpl implements PaypalService {
 		String accessToken = getAccessToken();
 		
 		PaypalCreateOrderRequestDTO createOrderRequest = new PaypalCreateOrderRequestDTO();
-		//TODO fill the DTO
+		
 		Amount amount = new Amount();
 		amount.setValue("1");
 		amount.setCurrencyCode("EUR");
