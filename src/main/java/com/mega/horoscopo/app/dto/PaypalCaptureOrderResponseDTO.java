@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaypalCreateOrderResponseDTO {
+public class PaypalCaptureOrderResponseDTO {
 
 	private String id;
 	
@@ -14,6 +14,11 @@ public class PaypalCreateOrderResponseDTO {
 	
 	@JsonProperty("payment_source")
 	private PaymentSource paymentSource;
+	
+	@JsonProperty("purchase_units")
+	private List<PurchaseUnit> purchaseUnits;
+	
+	private Payer payer;
 	
 	private List<Link> links;
 
@@ -41,6 +46,22 @@ public class PaypalCreateOrderResponseDTO {
 		this.paymentSource = paymentSource;
 	}
 
+	public List<PurchaseUnit> getPurchaseUnits() {
+		return purchaseUnits;
+	}
+
+	public void setPurchaseUnits(List<PurchaseUnit> purchaseUnits) {
+		this.purchaseUnits = purchaseUnits;
+	}
+
+	public Payer getPayer() {
+		return payer;
+	}
+
+	public void setPayer(Payer payer) {
+		this.payer = payer;
+	}
+
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -51,7 +72,7 @@ public class PaypalCreateOrderResponseDTO {
 
 	@Override
 	public String toString() {
-		return "PaypalCreateOrderResponseDTO [id=" + id + ", status=" + status + ", paymentSource=" + paymentSource
-				+ ", links=" + links + "]";
+		return "PaypalCaptureOrderResponseDTO [id=" + id + ", status=" + status + ", paymentSource=" + paymentSource
+				+ ", purchaseUnits=" + purchaseUnits + ", payer=" + payer + ", links=" + links + "]";
 	}
 }

@@ -1,5 +1,8 @@
 package com.mega.horoscopo.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentSource {
 
 	private Paypal paypal;
