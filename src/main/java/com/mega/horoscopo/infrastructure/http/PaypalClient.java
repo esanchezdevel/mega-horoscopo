@@ -16,16 +16,14 @@ import feign.Headers;
 @FeignClient(value = "paypalClient", url = "${paypal.baseUrl}")
 public interface PaypalClient {
 	
-	@PostMapping("/v1/oauth2/token")
+	@PostMapping(value = "/v1/oauth2/token")
 	@Headers({"Content-Type: application/x-www-form-urlencoded", "Accept: application/json", "Accept-Language: es_US"})
 	PaypalAccessTokenResponseDTO getAccessToken(@RequestHeader("authorization") String token, @RequestBody String grantType);
 
-	@PostMapping("/v2/checkout/orders")
-	@Headers({"Content-Type: application/json", "Accept: application/json"})
+	@PostMapping(value = "/v2/checkout/orders", consumes = "application/json", produces = "application/json")
 	PaypalCreateOrderResponseDTO createOrder(@RequestHeader("PayPal-Request-Id") String requestId, @RequestHeader("Authorization") String token, @RequestBody PaypalCreateOrderRequestDTO request);
 	
-	@PostMapping("/v2/checkout/orders/{orderId}/capture")
-	@Headers({"Content-Type: application/json", "Accept: application/json"})
+	@PostMapping(value = "/v2/checkout/orders/{orderId}/capture", consumes = "application/json", produces = "application/json")
 	PaypalCaptureOrderResponseDTO captureOrder(@RequestHeader("PayPal-Request-Id") String requestId, @RequestHeader("Authorization") String token, @PathVariable("orderId") String orderId);
 	
 }
