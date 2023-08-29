@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mega.horoscopo.app.service.interfaces.SignService;
-import com.mega.horoscopo.infrastructure.configuration.PaypalConfiguration;
-import com.mega.horoscopo.infrastructure.http.PaypalClient;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -20,16 +18,8 @@ public class MainController {
 
 	private static final Logger logger = LogManager.getLogger(MainController.class);
 	
-	private static final String PAGE_PAYMENT = "payment";
-	
 	@Autowired
 	private SignService signService;
-	
-	@Autowired
-	private PaypalClient paypalClient;
-	
-	@Autowired
-	private PaypalConfiguration paypalConfiguration;
 	
 	@GetMapping("/")
 	public String index(HttpServletResponse response, Model model) {
