@@ -20,7 +20,9 @@ import com.mega.horoscopo.app.dto.PaypalCaptureOrderResponseDTO;
 import com.mega.horoscopo.app.dto.PaypalCreateOrderRequestDTO;
 import com.mega.horoscopo.app.dto.PaypalCreateOrderResponseDTO;
 import com.mega.horoscopo.app.dto.PurchaseUnit;
+import com.mega.horoscopo.domain.model.entity.Transaction;
 import com.mega.horoscopo.domain.service.interfaces.PaypalService;
+import com.mega.horoscopo.domain.service.interfaces.TransactionService;
 import com.mega.horoscopo.infrastructure.configuration.PaypalConfiguration;
 import com.mega.horoscopo.infrastructure.http.PaypalClient;
 
@@ -34,6 +36,9 @@ public class PaypalServiceImpl implements PaypalService {
 	
 	@Autowired
 	private PaypalConfiguration paypalConfiguration;
+	
+	@Autowired
+	private TransactionService transactionService;
 	
 	@Override
 	public String getAccessToken() {
@@ -89,6 +94,9 @@ public class PaypalServiceImpl implements PaypalService {
 		
 		logger.info("createOrder response: {}", createOrderResponse);
 		
+		Transaction transaction = transactionService.createCreateOrderTransaction(requestId, createOrderRequest, createOrderResponse);
+		transactionService.storeTransaction(transaction);
+		
 		return createOrderResponse;
 	}
 	
@@ -101,6 +109,9 @@ public class PaypalServiceImpl implements PaypalService {
 		PaypalCaptureOrderResponseDTO captureOrderResponse =  paypalClient.captureOrder(requestId, "Bearer " + accessToken, orderId);
 		
 		logger.info("captureOrder response: {}", captureOrderResponse);
+		
+		Transaction transaction = transactionService.createCaptureOrderTransaction(requestId, orderId, captureOrderResponse);
+		transactionService.storeTransaction(transaction);
 		
 		return captureOrderResponse;
 	}

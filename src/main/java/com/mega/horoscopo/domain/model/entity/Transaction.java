@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -22,15 +21,18 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "request_id")
+	private String requestId;
+	
 	@Column(name = "request_type")
 	private String requestType;
 	
 	private String url;
 
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String request;
 	
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String response;
 	
 	@CreatedDate
@@ -56,6 +58,14 @@ public class Transaction {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
 	}
 
 	public String getRequestType() {
@@ -108,7 +118,8 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [id=" + id + ", requestType=" + requestType + ", url=" + url + ", request=" + request
-				+ ", response=" + response + ", created=" + created + ", lastUpdate=" + lastUpdate + "]";
+		return "Transaction [id=" + id + ", requestId=" + requestId + ", requestType=" + requestType + ", url=" + url
+				+ ", request=" + request + ", response=" + response + ", created=" + created + ", lastUpdate="
+				+ lastUpdate + "]";
 	}
 }
