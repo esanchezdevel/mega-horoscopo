@@ -45,13 +45,18 @@
         },
         // Finalize the transaction on the server after payer approval
         onApprove(data) {
+          const currentURL = window.location.href;
+          const urlParts = currentURL.split('/');
+          const currentSign = urlParts[urlParts.length - 1];
+          
           return fetch("/api/v1/paypal/order/capture", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              orderID: data.orderID
+              orderID: data.orderID,
+              sign: currentSign
             })
           })
           .then((response) => response.json())

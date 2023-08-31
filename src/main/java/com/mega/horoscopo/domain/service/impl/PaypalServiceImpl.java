@@ -16,11 +16,13 @@ import com.mega.horoscopo.app.dto.ExperienceContext;
 import com.mega.horoscopo.app.dto.PaymentSource;
 import com.mega.horoscopo.app.dto.Paypal;
 import com.mega.horoscopo.app.dto.PaypalAccessTokenResponseDTO;
+import com.mega.horoscopo.app.dto.PaypalCaptureOrderRequestDTO;
 import com.mega.horoscopo.app.dto.PaypalCaptureOrderResponseDTO;
 import com.mega.horoscopo.app.dto.PaypalCreateOrderRequestDTO;
 import com.mega.horoscopo.app.dto.PaypalCreateOrderResponseDTO;
 import com.mega.horoscopo.app.dto.PurchaseUnit;
 import com.mega.horoscopo.domain.model.entity.Transaction;
+import com.mega.horoscopo.domain.service.interfaces.OrderService;
 import com.mega.horoscopo.domain.service.interfaces.PaypalService;
 import com.mega.horoscopo.domain.service.interfaces.TransactionService;
 import com.mega.horoscopo.infrastructure.configuration.PaypalConfiguration;
@@ -39,6 +41,9 @@ public class PaypalServiceImpl implements PaypalService {
 	
 	@Autowired
 	private TransactionService transactionService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Override
 	public String getAccessToken() {
@@ -101,17 +106,19 @@ public class PaypalServiceImpl implements PaypalService {
 	}
 	
 	@Override
-	public PaypalCaptureOrderResponseDTO captureOrder(String orderId) {
+	public PaypalCaptureOrderResponseDTO captureOrder(PaypalCaptureOrderRequestDTO request) {
 		
 		String accessToken = getAccessToken();
 		
 		String requestId = UUID.randomUUID().toString();
-		PaypalCaptureOrderResponseDTO captureOrderResponse =  paypalClient.captureOrder(requestId, "Bearer " + accessToken, orderId);
+		PaypalCaptureOrderResponseDTO captureOrderResponse =  paypalClient.captureOrder(requestId, "Bearer " + accessToken, request.getOrderId());
 		
 		logger.info("captureOrder response: {}", captureOrderResponse);
 		
-		Transaction transaction = transactionService.createCaptureOrderTransaction(requestId, orderId, captureOrderResponse);
+		Transaction transaction = transactionService.createCaptureOrderTransaction(requestId, request.getOrderId(), captureOrderResponse);
 		transactionService.storeTransaction(transaction);
+		
+		orderService.storeOrder(requestId, request.getSign(), captureOrderResponse);
 		
 		return captureOrderResponse;
 	}

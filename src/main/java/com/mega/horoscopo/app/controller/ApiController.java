@@ -37,7 +37,7 @@ public class ApiController {
 	@PostMapping("/paypal/order/capture")
 	public ResponseEntity<?> capturePaypalOrder(@RequestBody PaypalCaptureOrderRequestDTO request, HttpServletResponse response) throws JsonProcessingException {
 		
-		PaypalCaptureOrderResponseDTO captureOrderResponse = paypalService.captureOrder(request.getOrderId());
+		PaypalCaptureOrderResponseDTO captureOrderResponse = paypalService.captureOrder(request);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonResponse = mapper.writeValueAsString(captureOrderResponse);

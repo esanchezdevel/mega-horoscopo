@@ -1,5 +1,6 @@
 package com.mega.horoscopo.domain.service.interfaces;
 
+import com.mega.horoscopo.app.dto.PaypalCaptureOrderRequestDTO;
 import com.mega.horoscopo.app.dto.PaypalCaptureOrderResponseDTO;
 import com.mega.horoscopo.app.dto.PaypalCreateOrderResponseDTO;
 
@@ -9,5 +10,5 @@ public interface PaypalService {
 	
 	PaypalCreateOrderResponseDTO createOrder();
 	
-	PaypalCaptureOrderResponseDTO captureOrder(String orderId);
+	PaypalCaptureOrderResponseDTO captureOrder(PaypalCaptureOrderRequestDTO request);
 }
