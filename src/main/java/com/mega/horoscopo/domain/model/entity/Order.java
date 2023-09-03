@@ -1,10 +1,16 @@
 package com.mega.horoscopo.domain.model.entity;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,6 +44,23 @@ public class Order {
 	
 	@Column(name = "purchase_reference_id")
 	private String purchaseReferenceId;
+	
+	@CreatedDate
+	private LocalDateTime created;
+
+	@Column(name = "last_update")
+	private LocalDateTime lastUpdate;
+
+	@PrePersist
+	public void prePersist() {
+		created = LocalDateTime.now();
+		lastUpdate = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		lastUpdate = LocalDateTime.now();
+	}
 	
 	private String price;
 	
@@ -152,11 +175,28 @@ public class Order {
 		this.horoscopeSign = horoscopeSign;
 	}
 
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", requestId=" + requestId + ", orderId=" + orderId + ", userName=" + userName
 				+ ", userSurname=" + userSurname + ", userEmail=" + userEmail + ", payerId=" + payerId
-				+ ", userAccountId=" + userAccountId + ", purchaseReferenceId=" + purchaseReferenceId + ", price="
-				+ price + ", currency=" + currency + ", status=" + status + ", horoscopeSign=" + horoscopeSign + "]";
+				+ ", userAccountId=" + userAccountId + ", purchaseReferenceId=" + purchaseReferenceId + ", created="
+				+ created + ", lastUpdate=" + lastUpdate + ", price=" + price + ", currency=" + currency + ", status="
+				+ status + ", horoscopeSign=" + horoscopeSign + "]";
 	}
 }
