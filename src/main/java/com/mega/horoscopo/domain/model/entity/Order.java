@@ -45,6 +45,28 @@ public class Order {
 	@Column(name = "purchase_reference_id")
 	private String purchaseReferenceId;
 	
+	@Column(name = "refund_url")
+	private String refundUrl;
+	
+	@Column(name = "total_amount")
+	private double totalAmount;
+	
+	@Column(name = "net_amount")
+	private double netAmount;
+	
+	@Column(name = "paypal_fee")
+	private double paypalFee;
+	
+	private String currency;
+	
+	private String status;
+	
+	@Column(name = "horoscope_sign")
+	private String horoscopeSign;
+	
+	@Column(name = "country_code")
+	private String countryCode;
+	
 	@CreatedDate
 	private LocalDateTime created;
 
@@ -61,15 +83,6 @@ public class Order {
 	public void preUpdate() {
 		lastUpdate = LocalDateTime.now();
 	}
-	
-	private String price;
-	
-	private String currency;
-	
-	private String status;
-	
-	@Column(name = "horoscope_sign")
-	private String horoscopeSign;
 
 	public Long getId() {
 		return id;
@@ -143,14 +156,6 @@ public class Order {
 		this.purchaseReferenceId = purchaseReferenceId;
 	}
 
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
 	public String getCurrency() {
 		return currency;
 	}
@@ -191,12 +196,53 @@ public class Order {
 		this.lastUpdate = lastUpdate;
 	}
 
+	public String getRefundUrl() {
+		return refundUrl;
+	}
+
+	public void setRefundUrl(String refundUrl) {
+		this.refundUrl = refundUrl;
+	}
+
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public double getNetAmount() {
+		return netAmount;
+	}
+
+	public void setNetAmount(double netAmount) {
+		this.netAmount = netAmount;
+	}
+
+	public double getPaypalFee() {
+		return paypalFee;
+	}
+
+	public void setPaypalFee(double paypalFee) {
+		this.paypalFee = paypalFee;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", requestId=" + requestId + ", orderId=" + orderId + ", userName=" + userName
 				+ ", userSurname=" + userSurname + ", userEmail=" + userEmail + ", payerId=" + payerId
-				+ ", userAccountId=" + userAccountId + ", purchaseReferenceId=" + purchaseReferenceId + ", created="
-				+ created + ", lastUpdate=" + lastUpdate + ", price=" + price + ", currency=" + currency + ", status="
-				+ status + ", horoscopeSign=" + horoscopeSign + "]";
+				+ ", userAccountId=" + userAccountId + ", purchaseReferenceId=" + purchaseReferenceId + ", refundUrl="
+				+ refundUrl + ", totalAmount=" + totalAmount + ", netAmount=" + netAmount + ", paypalFee=" + paypalFee
+				+ ", currency=" + currency + ", status=" + status + ", horoscopeSign=" + horoscopeSign
+				+ ", countryCode=" + countryCode + ", created=" + created + ", lastUpdate=" + lastUpdate + "]";
 	}
 }

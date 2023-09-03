@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Paypal {
 
+	@JsonProperty("account_status")
+	private String accountStatus;
+	
+	private Address address;
+	
 	@JsonProperty("experience_context")
 	private ExperienceContext experienceContext;
 
@@ -48,10 +53,27 @@ public class Paypal {
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
+	
+	public String getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(String accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	@Override
 	public String toString() {
-		return "Paypal [experienceContext=" + experienceContext + ", name=" + name + ", emailAddress=" + emailAddress
-				+ ", accountId=" + accountId + "]";
+		return "Paypal [accountStatus=" + accountStatus + ", address=" + address + ", experienceContext="
+				+ experienceContext + ", name=" + name + ", emailAddress=" + emailAddress + ", accountId=" + accountId
+				+ "]";
 	}
 }

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Payer {
 
+	private Address address;
+	
 	private Name name;
 	
 	@JsonProperty("email_address")
@@ -37,9 +39,18 @@ public class Payer {
 	public void setPayerId(String payerId) {
 		this.payerId = payerId;
 	}
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	@Override
 	public String toString() {
-		return "Payer [name=" + name + ", emailAddress=" + emailAddress + ", payerId=" + payerId + "]";
+		return "Payer [address=" + address + ", name=" + name + ", emailAddress=" + emailAddress + ", payerId="
+				+ payerId + "]";
 	}
 }

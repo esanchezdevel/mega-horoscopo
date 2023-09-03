@@ -21,8 +21,10 @@ public class OrderServiceImpl implements OrderService {
 		order.setHoroscopeSign(horoscopeSign);
 		order.setOrderId(captureOrderResponse.getId());
 		order.setPayerId(captureOrderResponse.getPayer().getPayerId());
-		order.setPrice("1");
-		order.setCurrency("EUR");
+		order.setTotalAmount(Double.parseDouble(captureOrderResponse.getPurchaseUnits().get(0).getPayments().getCaptures().get(0).getSellerReceivableBreakdown().getGrossAmount().getValue()));
+		order.setNetAmount(Double.parseDouble(captureOrderResponse.getPurchaseUnits().get(0).getPayments().getCaptures().get(0).getSellerReceivableBreakdown().getNetAmount().getValue()));
+		order.setPaypalFee(Double.parseDouble(captureOrderResponse.getPurchaseUnits().get(0).getPayments().getCaptures().get(0).getSellerReceivableBreakdown().getPaypalFee().getValue()));
+		order.setCurrency(captureOrderResponse.getPurchaseUnits().get(0).getPayments().getCaptures().get(0).getSellerReceivableBreakdown().getGrossAmount().getCurrencyCode());
 		order.setPurchaseReferenceId(captureOrderResponse.getPurchaseUnits().get(0).getReferenceId());
 		order.setRequestId(requestId);
 		order.setStatus(captureOrderResponse.getStatus());
@@ -30,6 +32,13 @@ public class OrderServiceImpl implements OrderService {
 		order.setUserEmail(captureOrderResponse.getPayer().getEmailAddress());
 		order.setUserName(captureOrderResponse.getPayer().getName().getGivenName());
 		order.setUserSurname(captureOrderResponse.getPayer().getName().getSurname());
+		order.setCountryCode(captureOrderResponse.getPayer().getAddress().getCountryCode());
+		
+		captureOrderResponse.getPurchaseUnits().get(0).getPayments().getCaptures().get(0).getLinks().forEach(link -> {
+			if ("refund".equals(link.getRel())) {
+				order.setRefundUrl(link.getHref());
+			}
+		});
 		
 		orderRepository.save(order);
 	}

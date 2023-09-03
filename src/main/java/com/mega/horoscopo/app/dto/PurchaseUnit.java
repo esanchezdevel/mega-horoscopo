@@ -6,10 +6,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PurchaseUnit {
 
+	private Amount amount;
+	
+	private Payment payments;
+	
 	@JsonProperty("reference_id")
 	private String referenceId;
-	
-	private Amount amount;
+
+	public Payment getPayments() {
+		return payments;
+	}
+
+	public void setPayments(Payment payments) {
+		this.payments = payments;
+	}
 
 	public String getReferenceId() {
 		return referenceId;
@@ -29,6 +39,6 @@ public class PurchaseUnit {
 
 	@Override
 	public String toString() {
-		return "PurchaseUnit [referenceId=" + referenceId + ", amount=" + amount + "]";
+		return "PurchaseUnit [amount=" + amount + ", payments=" + payments + ", referenceId=" + referenceId + "]";
 	}
 }

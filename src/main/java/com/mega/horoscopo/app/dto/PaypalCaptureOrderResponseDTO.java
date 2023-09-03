@@ -21,7 +21,7 @@ public class PaypalCaptureOrderResponseDTO {
 	private Payer payer;
 	
 	private List<Link> links;
-
+	
 	public String getId() {
 		return id;
 	}
